@@ -443,4 +443,13 @@ guys <- data.frame(name = names.vec,
 print(guys)
 summary(guys)
 str(guys)
- 
+
+## exercise:
+movies <- list(movie1=list(Rank=1,Peak=1,Title="Avatar", Worldwide_gross=2787965087, Year=2009),
+           movie2=list(Rank=2,Peak=1,Title="Titanic", Worldwide_gross=2187463944 , Year=1997),
+           movie3=list(Rank=3,Peak=3,Title="Star Wars: The Force Awakeness", Worldwide_gross=2068223624 , Year=2015),
+           movie4=list(Rank=4,Peak=4,Title="Avengers: Infinity War",Worldwide_gross=1844894638, Year=2018),
+           movie5=list(Rank=5,Peak=3,Title="Jurassic World",Worldwide_gross=1671713208, Year=2015)
+)
+movies$movie2$Title
+movies[[2]][[3]]
