@@ -190,7 +190,7 @@ m1 + t(m1)
 m1 - t(m1)
 
 m1 + m2 ## doesn't work
-m1 + as.vector(m2) ## doesn't work
+m1 + as.vector(m2) ##
 
 
 ## Multiplication/Division
