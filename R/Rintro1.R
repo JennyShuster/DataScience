@@ -453,3 +453,4 @@ movies <- list(movie1=list(Rank=1,Peak=1,Title="Avatar", Worldwide_gross=2787965
 )
 movies$movie2$Title
 movies[[2]][[3]]
+

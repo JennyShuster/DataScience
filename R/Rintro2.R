@@ -143,7 +143,7 @@ ls()  ## show all the available objects existing in the environment
 rm("C")  ## remove the C object
 
 getwd()  ## get the working directory
-setwd("/home/karpati/Rintro/")  ## set the working directory to the specified path
+#setwd("/home/karpati/Rintro/")  ## set the working directory to the specified path
 
 dt <- Sys.time()  ## get system date-time
 
@@ -173,16 +173,18 @@ for (n in 1:4) {
   print(sample(c(1,2,3,4,5,6,7,8,9,10),3))
 }
 
-set.seed(123)
+set.seed(88)
 for (n in 1:4) {
   print(sample(c(1,2,3,4,5,6,7,8,9,10),3))
 }
 
 runif(n=10, min=0, max=1)  ## 10 random numbers between 0 and 1
+
+set.seed(333)
 runif(n=5, min=-3, max=3)  ## 3 random numbers between -3 and 3
 
 ## normal distribution
-rnorm(n=10, mean=5, sd=2)
+rnorm(n=10000, mean=5, sd=2)
 
 ## binomial distribution
 rbinom(n=10, size=1, prob=0.4)
@@ -306,12 +308,18 @@ c(x,y)
 ###  if (condition) { ... } else { ... }
 x <- 5
 y <- 0
-if( x > 5 ) { y = 10 } else { y = 5 }
+if( x > 5 ) {
+  y = 10 
+} else if (x > 3) {
+  y = 2 
+} else {
+  y=5
+}
 c(x,y)
 
 ###  ifelse(condition, value1, value2) 
 x <- 5
-y <- ifelse(x > 5, 10, 5)
+y <- ifelse(x > 5, 10, ifelse(x > 3, 2, 5))
 c(x,y)
 
 ###################################
@@ -346,11 +354,11 @@ while(x < 5) {
 
 
 ### permanent recursion
-x <- 0
-while(TRUE) {
-  x <- x + 1
-  print(x)
-}
+#x <- 0
+#while(TRUE) {
+#  x <- x + 1
+#  print(x)
+#}
 ## how can we prevent it from running infinitely? 
 
 ## repeat works like the last while example.
