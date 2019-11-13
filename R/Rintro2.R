@@ -388,7 +388,7 @@ plot(x, y)
 plot(x ~ y)  ## what happen with the axes?
 lines(x ~ y)
 
-plot(x, y, type='o') ## points and lines
+plot(x, y, type='o', col="red") ## points and lines
 plot(x, y, type='p') ## points
 plot(x, y, type='l') ## lines
 plot(x, y, type='b') ## both points and dotted lines
@@ -468,7 +468,7 @@ for(x in 1:4) {
 
 ### barplot
 barplot(df$mpg)
-
+barplot(table(mtcars$gear))
 ### histograms and boxplots
 x <- rnorm(400, mean=40, sd=15)
 hist(x)
