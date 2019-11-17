@@ -454,9 +454,12 @@ class(mydata)
 str(mydata)
 
 ####### Excel
+#if library does not work:
+#Sys.setenv(JAVA_HOME="") or:
+#in the console: install.packages("rJava")
 library(xlsx)
 df1 <- read.xlsx("excel-example.xlsx",sheetIndex = 1)
-df2 <- read.xlsx("excel-example.xlsx",sheetIndex = 2)
+df2 <- read.xlsx("excel-example.xlsx",sheetIndex = 2, endRow = 9) # does not include the 9th row
 
 ### Write a data.frame to an excel file
 write.xlsx(df1, "one-sheet-example.xlsx", sheetName="Data Frame")
@@ -544,6 +547,7 @@ xmldoc <- xmlParse(myxml)
 rootNode <- xmlRoot(xmldoc)
 rootNode[1]
 rootNode[2]
+rootNode[3]
 
 ########################
 #### JSON files
@@ -566,8 +570,15 @@ json_df <- as.data.frame(json_data)
 
 
 library(DBI)
-con <- dbConnect(odbc::odbc(), "tcds")
+con <- dbConnect(odbc::odbc(), .connection_string = "Driver={ODBC Driver 17 for SQL Server};server=192.168.1.1;
+uid=dsuser06;
+pwd=DSuser06!;")
 sql <- "SELECT * FROM acs2015_country_data"
 acs <- dbGetQuery(con, sql)
 dbDisconnect(con)
 
+#windows - at home:
+con <- dbConnect(odbc::odbc(), dsn = "COLLEGE;Trusted_Connection=yes;")
+sql <- "SELECT * FROM COLLEGE.dbo.Students"
+students_df <- dbGetQuery(con, sql)
+dbDisconnect(con)

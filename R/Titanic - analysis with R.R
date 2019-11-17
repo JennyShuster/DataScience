@@ -5,17 +5,20 @@ library(dplyr)
 library(ggplot2)
 
 ### Import the titanic dataset
-titanic <- read.csv(paste(path,"../data/titanic.csv",sep="/"))
+titanic <- read.csv("../data/titanic.csv")
 head(titanic)
 
 ##################################################
 ### Number of pasangers and how much survived
 ##################################################
 passangers = nrow(titanic)
-survived = sum(titanic['Survived'])
+survived = sum(titanic['Survived']) #or: titanic$Survived
 
 print(paste("We have", passangers, "passangers but only", survived, "of them survived (", 
             survived/passangers*100, "%)"))
+#or:
+print(paste("We have", passangers, "passangers but only", survived, "of them survived (", 
+            format(round(survived/passangers*100, 2)), "%)"))
 
 ###################################################
 #### Missing values
