@@ -621,7 +621,7 @@ class pyMechkar: #(object):
         nm = data.columns
         ydef = 0
         for v in nm:
-            #print(v)
+            print(v)
             ############### PART I - Descriptive Statistics  ########################
             html = "<div class='Row'><div class='Cell Title'><b> %s </b></div>" % v
             myhtml.write(html)
@@ -682,6 +682,7 @@ class pyMechkar: #(object):
                     skw = '{:8,.2f}'.format(round(stats.skew(data[v]),decimals))
                     kurt = '{:8,.2f}'.format(round(stats.kurtosis(data[v]),decimals))
                     ############### PART II - Graph  ########################
+                    #print(f'{v}')
                     grp = sns.distplot(data[v])
                     fig = grp.get_figure()
                     fig.savefig("%s/img/%s_1.png" % (dir,v))

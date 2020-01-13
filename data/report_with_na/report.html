@@ -1,0 +1,404 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <title>Exploratory Data Analysis (EDA)</title>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+        <link rel='stylesheet' href='http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css'>
+        <script src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+        <script src='http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js'></script>
+        <script>
+        $(document).ready(function(){
+           $('.onetoone').hide();
+        });
+        $(function() {
+           $('.origimg').click(function(e) {
+             $('#popup_img').attr('src',$(this).attr('src'));
+             $('#myContainer').hide();
+             var pos = $(document).scrollTop();
+             $('#myContainer-popup').css({'clip':'auto', 'top':pos+20, 'left':250, 'width':'450px', 'height':'338px'});
+             //$('#myContainer').css({'top':pos+20,'left':250, 'width':'450px', 'height':'338px' ,'position':'absolute', 'border':'1px solid black', 'padding':'0px'});
+             $('#myContainer').css({'width':'450px', 'height':'338px' ,'position':'absolute', 'border':'1px solid black', 'padding':'0px'});
+             $('#myContainer').show();
+             $('#myContainer').css({'clip':'rect(1px, 450px, 338px, 0px)'});
+             $('#popup_img').css('visibility', 'visible');
+             //$('#myContainer-popup').css({'top':pos+20,'left':250, 'width':'450px', 'height':'338px' ,'position':'absolute', 'border':'1px solid black', 'padding':'0px'});
+             //alert("you clicked on the image:" +  $(this).attr('src'));
+            });
+           $('#myContainer').click(function(e) {
+             $('#myContainer').hide();
+           });
+           $('#myform2').submit(function(e) {
+             e.preventDefault();
+           });
+           $('#onetoone').on('click',function() {
+             console.log('onetone button - 1');
+             $('#onetoone').hide();
+             $('#aslist').css('visibility','visible')
+             $('#aslist').show();
+             // To show only individual rows:
+             $('.Row').hide();
+             $('.onetoone').show();
+             // then we iterate
+             var i = $('.Row').length;
+             // Then we iterate
+             var nxt = $('#idx').val();
+             if (nxt < i & nxt >0) {
+               $('.Row').hide();
+               $('.Row').eq(0).show();
+               $('.Row').eq(nxt).show();
+             } else {
+               $('#idx').val(1)
+             }
+             console.log('onetone button - 2');
+          });
+          $('#aslist').on('click',function() {
+            console.log('aslist button - 1');
+            $('#onetoone').show();
+            $('#aslist').hide();
+            $('.onetoone').hide();
+            $('.Row').show();
+            console.log('aslist button - 2');
+          });
+          $('#less').on('click',function(){
+            //console.log('less button - 1');
+            var i = $('.Row').length;
+            var nxt = parseInt($('#idx').val(),10) - 1;
+            if (nxt < i & nxt >0) {
+              $('#idx').val(nxt)
+              $('.Row').hide();
+              $('.Row').eq(0).show();
+              $('.Row').eq(nxt).show();
+            } else {
+              $('#idx').val(1)
+            }
+            //console.log('less button - 2');
+          });
+          $('#more').on('click',function(){
+            //console.log('more button - 1');
+            var i = $('.Row').length;
+            var nxt = parseInt($('#idx').val(),10) + 1;
+            if (nxt < i & nxt >0) {
+              $('#idx').val(nxt)
+              $('.Row').hide();
+              $('.Row').eq(0).show();
+              $('.Row').eq(nxt).show();
+            } else {
+              $('#idx').val(i)
+            }
+            //console.log('more button - 2');
+          });
+          $('#idx').on('change', function(){
+            //console.log('idx changed - 1');
+            var i = $('.Row').length;
+            var nxt = $('#idx').val();
+            if (nxt < i & nxt >0) {
+              $('#idx').val(nxt)
+              $('.Row').hide();
+              $('.Row').eq(0).show();
+              $('.Row').eq(nxt).show();
+            } else {
+              $('#idx').val(i)
+            }
+            console.log('idx changed - 2');
+          });
+        });
+        </script>
+        <style type='text/css'>
+        .Table
+        {
+           display: table;
+        }
+        .Title
+        {
+          display: table-caption;
+          text-align: center;
+          font-weight: bold;
+          font-size: larger;
+        }
+        .Row
+        {
+          display: table-row;
+        }
+        .Cell
+        {
+          display: table-cell;
+          border: solid;
+          border-width: thin;
+          padding-left: 5px;
+          padding-right: 5px;
+          vertical-align: top;
+          font-family: "Times New Roman", Times, serif;
+        }
+        .origimg {
+          width: 200px;
+          height:120px;
+        }
+        .ui-btn {
+          width: 10%;
+        }
+        .ui-input-text {
+          width: 90%;
+        }
+        </style>
+        </head>
+        <body>
+        <div id='pageone' data-role='main' class='ui-content'>
+            <p><p><h1> Exploratory Data Analysis (EDA) </h1>
+            <form id="onetoone">
+                <input type='button' id='onetoone' value='Show as Cards'>
+            </form>
+            <form id="aslist" style='visibility:hidden;'>
+                <input type='button' id='aslist' value='Show as List'>
+            </form>
+            <p>
+        <p><p>
+            <div class='Table'>
+            <div class='Row'>
+            <div class='Cell Title'> Variable </div>
+            <div class='Cell Title'> Distribution </div>
+            <div class='Cell Title'> Descriptive <br> Statistics</div>
+            <div class='Cell Title'> Outliers </div>
+            
+            </div>
+        <div class='Row'><div class='Cell Title'><b> movie_id </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>: 3,698.10 	 <u>StdDev</u>: 2,136.60 <br><u>Median</u>: 3,696.00 	
+                    <u>IQR</u>: 1,848.50-5,550.50<br><u>Min</u>: 1 	 <u>Max</u>: 7398 	 <p><u> Kurtosis</u>:     0.00 	 <br><u> Skweness</u>:    -1.20 </div>
+                    <div class='Cell'><img class="origimg" src="img/movie_id_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/movie_id_2.png"></img> <br> Number of outliers: 0 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> budget </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>: 22,666,656.90 	 <u>StdDev</u>: 36,984,846.40 <br><u>Median</u>: 8,000,000.00 	
+                    <u>IQR</u>:     0.00-29,000,000.00<br><u>Min</u>: 0 	 <u>Max</u>: 380000000 	 <p><u> Kurtosis</u>:     2.90 	 <br><u> Skweness</u>:    10.70 </div>
+                    <div class='Cell'><img class="origimg" src="img/budget_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/budget_2.png"></img> <br> Number of outliers: 624 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> original_language </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> popularity </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     8.50 	 <u>StdDev</u>:    12.20 <br><u>Median</u>:     7.50 	
+                    <u>IQR</u>:     4.00-   10.90<br><u>Min</u>: 1e-06 	 <u>Max</u>: 547.4882980000001 	 <p><u> Kurtosis</u>:    20.00 	 <br><u> Skweness</u>:   661.70 </div>
+                    <div class='Cell'><img class="origimg" src="img/popularity_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/popularity_2.png"></img> <br> Number of outliers: 201 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> release_date </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> runtime </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> runtime_cat </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> revenue </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> sw_lang_en </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.90 	 <u>StdDev</u>:     0.30 <br><u>Median</u>:     1.00 	
+                    <u>IQR</u>:     1.00-    1.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:    -2.10 	 <br><u> Skweness</u>:     2.30 </div>
+                    <div class='Cell'><img class="origimg" src="img/sw_lang_en_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/sw_lang_en_2.png"></img> <br> Number of outliers: 0 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> sw_web_presence </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.30 	 <u>StdDev</u>:     0.50 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    1.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     0.80 	 <br><u> Skweness</u>:    -1.40 </div>
+                    <div class='Cell'><img class="origimg" src="img/sw_web_presence_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/sw_web_presence_2.png"></img> <br> Number of outliers: 0 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> sw_has_poster </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     1.00 	 <u>StdDev</u>:     0.00 <br><u>Median</u>:     1.00 	
+                    <u>IQR</u>:     1.00-    1.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:   -60.70 	 <br><u> Skweness</u>: 3,682.50 </div>
+                    <div class='Cell'><img class="origimg" src="img/sw_has_poster_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/sw_has_poster_2.png"></img> <br> Number of outliers: 2 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> sw_tagline </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.80 	 <u>StdDev</u>:     0.40 <br><u>Median</u>:     1.00 	
+                    <u>IQR</u>:     1.00-    1.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:    -1.50 	 <br><u> Skweness</u>:     0.40 </div>
+                    <div class='Cell'><img class="origimg" src="img/sw_tagline_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/sw_tagline_2.png"></img> <br> Number of outliers: 0 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> keyword_cnt </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     7.30 	 <u>StdDev</u>:     6.30 <br><u>Median</u>:     6.00 	
+                    <u>IQR</u>:     3.00-   10.00<br><u>Min</u>: 0 	 <u>Max</u>: 149 	 <p><u> Kurtosis</u>:     3.10 	 <br><u> Skweness</u>:    43.40 </div>
+                    <div class='Cell'><img class="origimg" src="img/keyword_cnt_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/keyword_cnt_2.png"></img> <br> Number of outliers: 278 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> release_year </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> release_month </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> high_release_month </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.40 	 <u>StdDev</u>:     0.50 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    1.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     0.40 	 <br><u> Skweness</u>:    -1.80 </div>
+                    <div class='Cell'><img class="origimg" src="img/high_release_month_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/high_release_month_2.png"></img> <br> Number of outliers: 0 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> release_day </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> seasonality </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> sw_collection </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.00 	 <u>StdDev</u>:     0.20 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 2 	 <p><u> Kurtosis</u>:     6.30 	 <br><u> Skweness</u>:    43.20 </div>
+                    <div class='Cell'><img class="origimg" src="img/sw_collection_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/sw_collection_2.png"></img> <br> Number of outliers: 206 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> producers_cnt </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> countries_cnt </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     1.30 	 <u>StdDev</u>:     0.80 <br><u>Median</u>:     1.00 	
+                    <u>IQR</u>:     1.00-    1.00<br><u>Min</u>: 0 	 <u>Max</u>: 12 	 <p><u> Kurtosis</u>:     3.00 	 <br><u> Skweness</u>:    16.20 </div>
+                    <div class='Cell'><img class="origimg" src="img/countries_cnt_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/countries_cnt_2.png"></img> <br> Number of outliers: 1923 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> lang_US </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.90 	 <u>StdDev</u>:     0.30 <br><u>Median</u>:     1.00 	
+                    <u>IQR</u>:     1.00-    1.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:    -2.20 	 <br><u> Skweness</u>:     3.00 </div>
+                    <div class='Cell'><img class="origimg" src="img/lang_US_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/lang_US_2.png"></img> <br> Number of outliers: 933 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> lang_FR </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.10 	 <u>StdDev</u>:     0.30 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     2.70 	 <br><u> Skweness</u>:     5.50 </div>
+                    <div class='Cell'><img class="origimg" src="img/lang_FR_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/lang_FR_2.png"></img> <br> Number of outliers: 711 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> lang_RU </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.00 	 <u>StdDev</u>:     0.20 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     4.20 	 <br><u> Skweness</u>:    15.70 </div>
+                    <div class='Cell'><img class="origimg" src="img/lang_RU_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/lang_RU_2.png"></img> <br> Number of outliers: 358 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> lang_ES </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.10 	 <u>StdDev</u>:     0.30 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     3.20 	 <br><u> Skweness</u>:     8.30 </div>
+                    <div class='Cell'><img class="origimg" src="img/lang_ES_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/lang_ES_2.png"></img> <br> Number of outliers: 559 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> lang_JA </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.00 	 <u>StdDev</u>:     0.20 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     5.80 	 <br><u> Skweness</u>:    31.20 </div>
+                    <div class='Cell'><img class="origimg" src="img/lang_JA_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/lang_JA_2.png"></img> <br> Number of outliers: 204 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> keywords_cnt </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     7.30 	 <u>StdDev</u>:     6.30 <br><u>Median</u>:     6.00 	
+                    <u>IQR</u>:     3.00-   10.00<br><u>Min</u>: 0 	 <u>Max</u>: 149 	 <p><u> Kurtosis</u>:     3.10 	 <br><u> Skweness</u>:    43.40 </div>
+                    <div class='Cell'><img class="origimg" src="img/keywords_cnt_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/keywords_cnt_2.png"></img> <br> Number of outliers: 278 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> actor0_movies_cnt </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     7.20 	 <u>StdDev</u>:     9.00 <br><u>Median</u>:     4.00 	
+                    <u>IQR</u>:     0.00-   11.00<br><u>Min</u>: 0 	 <u>Max</u>: 65 	 <p><u> Kurtosis</u>:     1.70 	 <br><u> Skweness</u>:     3.30 </div>
+                    <div class='Cell'><img class="origimg" src="img/actor0_movies_cnt_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/actor0_movies_cnt_2.png"></img> <br> Number of outliers: 306 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> actor0_movies_5y_cnt </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     2.80 	 <u>StdDev</u>:     3.00 <br><u>Median</u>:     2.00 	
+                    <u>IQR</u>:     0.00-    5.00<br><u>Min</u>: 0 	 <u>Max</u>: 16 	 <p><u> Kurtosis</u>:     1.10 	 <br><u> Skweness</u>:     0.90 </div>
+                    <div class='Cell'><img class="origimg" src="img/actor0_movies_5y_cnt_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/actor0_movies_5y_cnt_2.png"></img> <br> Number of outliers: 52 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> actor1_movies_cnt </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     5.40 	 <u>StdDev</u>:     7.60 <br><u>Median</u>:     2.00 	
+                    <u>IQR</u>:     0.00-    8.00<br><u>Min</u>: 0 	 <u>Max</u>: 67 	 <p><u> Kurtosis</u>:     2.20 	 <br><u> Skweness</u>:     6.70 </div>
+                    <div class='Cell'><img class="origimg" src="img/actor1_movies_cnt_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/actor1_movies_cnt_2.png"></img> <br> Number of outliers: 411 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> actor1_movies_5y_cnt </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     2.30 	 <u>StdDev</u>:     2.80 <br><u>Median</u>:     1.00 	
+                    <u>IQR</u>:     0.00-    4.00<br><u>Min</u>: 0 	 <u>Max</u>: 17 	 <p><u> Kurtosis</u>:     1.50 	 <br><u> Skweness</u>:     2.10 </div>
+                    <div class='Cell'><img class="origimg" src="img/actor1_movies_5y_cnt_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/actor1_movies_5y_cnt_2.png"></img> <br> Number of outliers: 132 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> actor2_movies_cnt </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     4.80 	 <u>StdDev</u>:     7.10 <br><u>Median</u>:     2.00 	
+                    <u>IQR</u>:     0.00-    7.00<br><u>Min</u>: 0 	 <u>Max</u>: 68 	 <p><u> Kurtosis</u>:     2.40 	 <br><u> Skweness</u>:     7.70 </div>
+                    <div class='Cell'><img class="origimg" src="img/actor2_movies_cnt_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/actor2_movies_cnt_2.png"></img> <br> Number of outliers: 507 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> actor2_movies_5y_cnt </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     1.90 	 <u>StdDev</u>:     2.60 <br><u>Median</u>:     1.00 	
+                    <u>IQR</u>:     0.00-    3.00<br><u>Min</u>: 0 	 <u>Max</u>: 15 	 <p><u> Kurtosis</u>:     1.70 	 <br><u> Skweness</u>:     3.00 </div>
+                    <div class='Cell'><img class="origimg" src="img/actor2_movies_5y_cnt_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/actor2_movies_5y_cnt_2.png"></img> <br> Number of outliers: 345 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> sw_female_actor0 </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> sw_female_actor1 </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> sw_female_actor2 </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> sw_male_actor0 </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> sw_male_actor1 </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> sw_male_actor2 </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> actor0_prev_revenue </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> actor1_prev_revenue </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> actor2_prev_revenue </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> director_movies_cnt </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     2.00 	 <u>StdDev</u>:     3.20 <br><u>Median</u>:     1.00 	
+                    <u>IQR</u>:     0.00-    3.00<br><u>Min</u>: 0 	 <u>Max</u>: 29 	 <p><u> Kurtosis</u>:     3.00 	 <br><u> Skweness</u>:    12.90 </div>
+                    <div class='Cell'><img class="origimg" src="img/director_movies_cnt_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/director_movies_cnt_2.png"></img> <br> Number of outliers: 427 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> director_movies_5y_cnt </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.60 	 <u>StdDev</u>:     0.90 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    1.00<br><u>Min</u>: 0 	 <u>Max</u>: 6 	 <p><u> Kurtosis</u>:     1.60 	 <br><u> Skweness</u>:     2.80 </div>
+                    <div class='Cell'><img class="origimg" src="img/director_movies_5y_cnt_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/director_movies_5y_cnt_2.png"></img> <br> Number of outliers: 350 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_adventure </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.20 	 <u>StdDev</u>:     0.40 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     1.90 	 <br><u> Skweness</u>:     1.80 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_adventure_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_adventure_2.png"></img> <br> Number of outliers: 1116 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_fantasy </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.10 	 <u>StdDev</u>:     0.30 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     3.00 	 <br><u> Skweness</u>:     6.80 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_fantasy_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_fantasy_2.png"></img> <br> Number of outliers: 628 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_animation </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.10 	 <u>StdDev</u>:     0.20 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     4.00 	 <br><u> Skweness</u>:    14.40 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_animation_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_animation_2.png"></img> <br> Number of outliers: 382 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_drama </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.50 	 <u>StdDev</u>:     0.50 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    1.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     0.00 	 <br><u> Skweness</u>:    -2.00 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_drama_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_drama_2.png"></img> <br> Number of outliers: 0 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_horror </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.10 	 <u>StdDev</u>:     0.30 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     2.70 	 <br><u> Skweness</u>:     5.10 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_horror_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_horror_2.png"></img> <br> Number of outliers: 735 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_action </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.20 	 <u>StdDev</u>:     0.40 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     1.20 	 <br><u> Skweness</u>:    -0.40 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_action_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_action_2.png"></img> <br> Number of outliers: 1735 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_comedy </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.40 	 <u>StdDev</u>:     0.50 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    1.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     0.60 	 <br><u> Skweness</u>:    -1.60 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_comedy_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_comedy_2.png"></img> <br> Number of outliers: 0 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_history </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.00 	 <u>StdDev</u>:     0.20 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     4.70 	 <br><u> Skweness</u>:    20.00 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_history_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_history_2.png"></img> <br> Number of outliers: 295 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_western </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.00 	 <u>StdDev</u>:     0.10 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     7.70 	 <br><u> Skweness</u>:    58.10 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_western_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_western_2.png"></img> <br> Number of outliers: 117 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_thriller </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.30 	 <u>StdDev</u>:     0.40 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    1.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     1.10 	 <br><u> Skweness</u>:    -0.70 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_thriller_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_thriller_2.png"></img> <br> Number of outliers: 0 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_crime </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.10 	 <u>StdDev</u>:     0.40 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     2.00 	 <br><u> Skweness</u>:     2.00 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_crime_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_crime_2.png"></img> <br> Number of outliers: 1084 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_documentary </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.00 	 <u>StdDev</u>:     0.20 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     5.50 	 <br><u> Skweness</u>:    28.40 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_documentary_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_documentary_2.png"></img> <br> Number of outliers: 221 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_science_fiction </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.10 	 <u>StdDev</u>:     0.30 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     2.70 	 <br><u> Skweness</u>:     5.00 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_science_fiction_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_science_fiction_2.png"></img> <br> Number of outliers: 744 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_mystery </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.10 	 <u>StdDev</u>:     0.30 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     3.20 	 <br><u> Skweness</u>:     8.50 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_mystery_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_mystery_2.png"></img> <br> Number of outliers: 550 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_music </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.00 	 <u>StdDev</u>:     0.20 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     5.00 	 <br><u> Skweness</u>:    22.70 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_music_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_music_2.png"></img> <br> Number of outliers: 267 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_romance </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.20 	 <u>StdDev</u>:     0.40 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     1.50 	 <br><u> Skweness</u>:     0.40 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_romance_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_romance_2.png"></img> <br> Number of outliers: 1435 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_family </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.10 	 <u>StdDev</u>:     0.30 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     2.80 	 <br><u> Skweness</u>:     6.00 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_family_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_family_2.png"></img> <br> Number of outliers: 675 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_war </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.00 	 <u>StdDev</u>:     0.20 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     5.20 	 <br><u> Skweness</u>:    25.40 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_war_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_war_2.png"></img> <br> Number of outliers: 243 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> genre_foreign </b></div><div class='Cell'> <u>Data type</u>: Continuous <p> <u>Data length</u>: 7375/7375 (  100.00%%) <br>
+                    <u>Missing</u>: 0 (    0.00%%)<p> <u>Mean</u>:     0.00 	 <u>StdDev</u>:     0.10 <br><u>Median</u>:     0.00 	
+                    <u>IQR</u>:     0.00-    0.00<br><u>Min</u>: 0 	 <u>Max</u>: 1 	 <p><u> Kurtosis</u>:     9.20 	 <br><u> Skweness</u>:    82.80 </div>
+                    <div class='Cell'><img class="origimg" src="img/genre_foreign_1.png"></img></div>
+                    <div class='Cell'><img class="origimg" class="origimg" src="img/genre_foreign_2.png"></img> <br> Number of outliers: 84 </div>
+                    </div><div class='Row'><div class='Cell Title'><b> depart_Art </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Camera </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Crew </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Custom_Mkup </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Directing </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Editing </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Lighting </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Production </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Sound </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Visual_Effects </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Writing </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Art_female </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Camera_female </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Crew_female </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Custom_Mkup_female </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Directing_female </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Editing_female </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Lighting_female </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Production_female </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Sound_female </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Visual_Effects_female </b></div><div class='Cell Title'> Data type undefined </div></div><div class='Row'><div class='Cell Title'><b> depart_Writing_female </b></div><div class='Cell Title'> Data type undefined </div></div>
+                <div data-role='popup' id='myContainer' style='display: none;'>
+                    <img id='popup_img' src='' />
+                </div>
+
+                </div>
+                </div>
+                </div>
+                <p>
+                <div class='onetoone'>
+                    <form id='myform2' style='display:block;'>
+                      <div id='navigator' style="display: block; width='40%';">
+                          <div id='less' style="float:left;"><input class='ui-btn' type='button' id='less1' value=' << ' style='width: 10%;'></div>
+                          <div id='center' style="float:left;"><input id='idx' name='idx' value='1' style='text-align:center;'></input></div>
+                          <div id='more' style="float:left;"><input class='ui-btn' type='button' id='more1' value=' >> ' style='width: 10%;'></div>
+                      </div>
+                    </form>
+                </div>
+                <p>
+                </body></html>
+        
