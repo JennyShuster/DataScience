@@ -1,7 +1,7 @@
 USE [NoShow]
 GO
 
-/****** Object:  View [dbo].[V_ff]    Script Date: 11/03/2020 8:47:55 ******/
+/****** Object:  View [dbo].[V_ff]    Script Date: 28/03/2020 17:01:23 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,8 +9,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
+
 /****** Script for SelectTopNRows command from SSMS  ******/
-ALTER VIEW [dbo].[V_ff] AS
+CREATE VIEW [dbo].[V_ff] AS
 
 WITH A AS
 
@@ -443,5 +444,9 @@ FROM G
 
 
 --GO
+
+
+
+GO
 
 
